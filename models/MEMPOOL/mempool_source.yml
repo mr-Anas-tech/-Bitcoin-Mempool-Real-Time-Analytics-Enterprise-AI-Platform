@@ -1,0 +1,6 @@
+sources:
+  - name: raw_source
+    database: MEMPOOL_DB
+    schema: public
+    tables:
+      - name: STG_MEMPOOL_PARSED
