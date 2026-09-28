@@ -109,22 +109,21 @@ using the highly efficient Apache Avro serialization format.
 3. DEPLOYMENT & INFRASTRUCTURE MATRIX
 ----------------------------------------------------------------------------------------------------
 
-+-----------------------------------+------------------------------------+---------------------------------------+
+-----------------------------------+------------------------------------+---------------------------------------+
 | ARCHITECTURE COMPONENT            | AZURE RESOURCE SPECIFICATION       | PRODUCTION & TECHNICAL ROLE           |
-+-----------------------------------+------------------------------------+---------------------------------------+
+-----------------------------------+------------------------------------+---------------------------------------+
 | PaaS Host Engine                  | Azure App Service                  | Hosts Python 3.12 producer daemon     |
 |                                   | Name: `mempoolwebservice`          | with Flask health probe on port 8100. |
 |                                   | Region: West US 3                  |                                       |
-+-----------------------------------+------------------------------------+---------------------------------------+
+-----------------------------------+------------------------------------+---------------------------------------+
 | Distributed Ingestion Bus         | Azure Event Hubs                   | Real-time AMQP message ingestion bus  |
 |                                   | Namespace: `mempoolspace-Events`   | handling high-concurrency WebSocket   |
 |                                   | Hub: `mempool_realtime_streamig`   | transaction streams.                  |
-+-----------------------------------+------------------------------------+---------------------------------------+
+-----------------------------------+------------------------------------+---------------------------------------+
 | Automated Data Lake Sink          | Azure Event Hubs Capture           | Persists binary Apache Avro files into|
 |                                   | Target: Azure Storage Containers   | Blob storage for PySpark lakehouse    |
 |                                   | Format: Apache Avro Binary         | consumption.                          |
-+-----------------------------------+------------------------------------+---------------------------------------+
+-----------------------------------+------------------------------------+---------------------------------------+
 | Resilience & Self-Healing         | WebSocket Ping Heartbeat +         | Automatically recovers connection drops|
 |                                   | Exponential 5s Backoff             | without container crashes or bans.    |
-+-----------------------------------+------------------------------------+---------------------------------------+
-====================================================================================================
+-----------------------------------+------------------------------------+---------------------------------------+
