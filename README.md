@@ -128,3 +128,11 @@ using the highly efficient Apache Avro serialization format.
 |                                   | Exponential 5s Backoff             | without container crashes or bans.    |
 -----------------------------------+------------------------------------+---------------------------------------+
 ```
+
+
+
+### AZURE-DEPLOYED DATA INGESTION & EVENT HUB CAPTURE ARCHITECTURE VIDEO:
+
+https://github.com/user-attachments/assets/2c2a1a35-b9f2-4d07-baac-54a59f7104d7
+
+
