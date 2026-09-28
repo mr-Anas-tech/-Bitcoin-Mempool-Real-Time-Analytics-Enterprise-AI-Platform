@@ -1,9 +1,6 @@
 # mempool
 
-
-====================================================================================================
-               AZURE-DEPLOYED DATA INGESTION & EVENT HUB CAPTURE ARCHITECTURE
-====================================================================================================
+## AZURE-DEPLOYED DATA INGESTION & EVENT HUB CAPTURE ARCHITECTURE
 
 [CLOUD INFRASTRUCTURE OVERVIEW]
 The ingestion subsystem is hosted on Azure App Service (`mempoolwebservice`, Python 3.12 runtime) 
