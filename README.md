@@ -108,7 +108,7 @@ using the highly efficient Apache Avro serialization format.
 ----------------------------------------------------------------------------------------------------
 3. DEPLOYMENT & INFRASTRUCTURE MATRIX
 ----------------------------------------------------------------------------------------------------
-
+```
 -----------------------------------+------------------------------------+---------------------------------------+
 | ARCHITECTURE COMPONENT            | AZURE RESOURCE SPECIFICATION       | PRODUCTION & TECHNICAL ROLE           |
 -----------------------------------+------------------------------------+---------------------------------------+
@@ -127,3 +127,4 @@ using the highly efficient Apache Avro serialization format.
 | Resilience & Self-Healing         | WebSocket Ping Heartbeat +         | Automatically recovers connection drops|
 |                                   | Exponential 5s Backoff             | without container crashes or bans.    |
 -----------------------------------+------------------------------------+---------------------------------------+
+```
