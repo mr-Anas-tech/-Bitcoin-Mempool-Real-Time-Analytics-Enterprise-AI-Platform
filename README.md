@@ -236,10 +236,10 @@ files and loads them into analytical staging tables via scheduled background tas
 ----------------------------------------------------------------------------------------------------
 2. WAREHOUSE METRICS & DATA VOLUME PROOF
 ----------------------------------------------------------------------------------------------------
-* **Total Active Records Ingested: 50,119,413 Records (50M+ parsed time-series transactions).
-* **Compressed Lakehouse Storage: 1019.7 MB (~1 GB optimized Parquet/Snowflake Micro-Partitions).
-* **Query Latency: Sub-second lookup speed across 50M+ historical rows.
-* **Zero-Egress Security: Direct Azure Tenant integration via Service Principals with zero persistent credentials stored.
+* ** Total Active Records Ingested: 50,119,413 Records (50M+ parsed time-series transactions).
+* ** Compressed Lakehouse Storage: 1019.7 MB (~1 GB optimized Parquet/Snowflake Micro-Partitions).
+* ** Query Latency: Sub-second lookup speed across 50M+ historical rows.
+* ** Zero-Egress Security: Direct Azure Tenant integration via Service Principals with zero persistent credentials stored.
 
 Video:
 
