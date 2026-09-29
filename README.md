@@ -147,7 +147,7 @@ data transformation model that ingests binary Avro events and outputs query-opti
 ----------------------------------------------------------------------------------------------------
 1. TECHNICAL EXECUTION BREAKDOWN (CELL-BY-CELL REFINEMENT)
 ----------------------------------------------------------------------------------------------------
-
+```
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ STAGE 1: SECURE CONNECTION & AVRO INGESTION (BRONZE LAYER)                                       │
 │                                                                                                  │
@@ -179,7 +179,7 @@ data transformation model that ingests binary Avro events and outputs query-opti
 │   • Target Output: Writes clean, highly compressed analytical tables to ADLS Gen2:               │
 │     `abfss://bronze@mempoolspaceacc.dfs.core.windows.net/Mempool_parsing/` (Parquet Format)     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────┘
-
+```
 ----------------------------------------------------------------------------------------------------
 2. DATABRICKS JOB ORCHESTRATION & RESILIENCY
 ----------------------------------------------------------------------------------------------------
