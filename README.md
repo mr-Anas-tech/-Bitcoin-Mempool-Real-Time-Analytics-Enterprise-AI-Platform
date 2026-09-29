@@ -2,7 +2,7 @@
 
 ## AZURE-DEPLOYED DATA INGESTION & EVENT HUB CAPTURE ARCHITECTURE
 
-[CLOUD INFRASTRUCTURE OVERVIEW]
+### CLOUD INFRASTRUCTURE OVERVIEW
 The ingestion subsystem is hosted on Azure App Service (`mempoolwebservice`, Python 3.12 runtime) 
 in the West US 3 region. It maintains a persistent WebSocket connection to Mempool.space, streams 
 multi-entity blockchain transactions in real time, and ingests them into Azure Event Hubs 
@@ -69,7 +69,7 @@ using the highly efficient Apache Avro serialization format.
 
 ```
 
-[1. DEPLOYMENT TARGET: AZURE APP SERVICE (`mempoolwebservice`)]
+###1. DEPLOYMENT TARGET: AZURE APP SERVICE (`mempoolwebservice`)
 • PROBLEM: Running long-lived streaming producers on temporary local environments or bare VMs leads 
   to high maintenance overhead, lack of native TLS cert management, and unmanaged uptime.
 • IMPLEMENTATION: Deployed to Azure App Service (`mempoolwebservice`, Region: West US 3) running 
@@ -77,7 +77,7 @@ using the highly efficient Apache Avro serialization format.
 • ARCHITECTURAL IMPACT: Ensures enterprise PaaS management, automated cloud container health checks, 
   and continuous uptime without manual server administration.
 
-[2. EVENT STREAMING BUS: AZURE EVENT HUBS (`mempool_realtime_streamig`)]
+###2. EVENT STREAMING BUS: AZURE EVENT HUBS (`mempool_realtime_streamig`)
 • PROBLEM: Ingesting high-concurrency WebSocket transaction bursts directly into standard SQL 
   databases or files causes thread blocking, write lock contention, and network bottlenecks.
 • IMPLEMENTATION: Event Hubs acts as a massive-scale distributed buffer (`mempoolspace-Events` 
@@ -85,7 +85,7 @@ using the highly efficient Apache Avro serialization format.
 • ARCHITECTURAL IMPACT: Handles hundreds of thousands of incoming events seamlessly with zero 
   producer throttling or dropped messages.
 
-[3. NATIVE EVENT HUBS CAPTURE TO AVRO FORMAT IN BLOB CONTAINERS]
+###3. NATIVE EVENT HUBS CAPTURE TO AVRO FORMAT IN BLOB CONTAINERS
 • PROBLEM: Writing continuous streaming data directly to disk using plain JSON format causes 
   excessive disk I/O, large storage footprints, and slow parsing times in big-data engines.
 • IMPLEMENTATION: Enabled Azure Event Hubs native Capture engine. It streams incoming partition 
@@ -96,7 +96,7 @@ using the highly efficient Apache Avro serialization format.
   - Databricks/Lakehouse Ready: Avro files are natively optimized for high-speed parallel reading 
     by Apache Spark in PySpark streaming pipelines.
 
-[4. IN-MEMORY BATCHING & EXCEPTION RECOVERY (1MB BOUNDARY)]
+###4. IN-MEMORY BATCHING & EXCEPTION RECOVERY (1MB BOUNDARY)
 • PROBLEM: Azure Event Hubs imposes a strict 1MB size limit per AMQP batch. Burst transaction 
   payloads during network volatility spikes can exceed this boundary and throw exceptions.
 • IMPLEMENTATION: The Python client maintains client-side batching (`producer.create_batch()`). 
@@ -196,7 +196,7 @@ https://github.com/user-attachments/assets/7a635d85-0249-4a0a-a4fb-96eee0ed5770
 #            SNOWFLAKE DATA WAREHOUSING & AUTOMATED INGESTION TASK
 
 
-[ENTERPRISE WAREHOUSE ARCHITECTURE]
+###ENTERPRISE WAREHOUSE ARCHITECTURE
 Snowflake serves as the centralized Cloud Data Warehouse, securely integrating with Azure Data Lake 
 Storage (ADLS Gen2) via native Azure Storage Integrations. It automatically parses incoming Parquet 
 files and loads them into analytical staging tables via scheduled background tasks.
