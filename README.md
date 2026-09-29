@@ -184,10 +184,10 @@ data transformation model that ingests binary Avro events and outputs query-opti
 2. DATABRICKS JOB ORCHESTRATION & RESILIENCY
 ----------------------------------------------------------------------------------------------------
 
-• Automated Workflow Trigger: Executed via Databricks Automated Workflows scheduled every 5 hours 
+. Automated Workflow Trigger: Executed via Databricks Automated Workflows scheduled every 5 hours 
   (`mempool_parsing` job pipeline).
-• Production Uptime: 100% success rate with zero pipeline failures across multi-day continuous runs.
-• Key Vault Hardening: Zero hardcoded storage secrets in codebase, maintaining enterprise cloud 
+. Production Uptime: 100% success rate with zero pipeline failures across multi-day continuous runs.
+. Key Vault Hardening: Zero hardcoded storage secrets in codebase, maintaining enterprise cloud 
   security standards.
 ====================================================================================================
 
