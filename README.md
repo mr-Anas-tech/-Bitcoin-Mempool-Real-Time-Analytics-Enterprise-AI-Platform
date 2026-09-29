@@ -187,6 +187,70 @@ data transformation model that ingests binary Avro events and outputs query-opti
   (`mempool_parsing` job pipeline).
 ###  Production Uptime: 100% success rate with zero pipeline failures across multi-day continuous runs.
 ### Key Vault Hardening: Zero hardcoded storage secrets in codebase, maintaining enterprise cloud security standards.
+
+## Video :
+
+
+https://github.com/user-attachments/assets/7a635d85-0249-4a0a-a4fb-96eee0ed5770
+
+
+====================================================================================================
+
+
+====================================================================================================
+                  SNOWFLAKE DATA WAREHOUSING & AUTOMATED INGESTION TASK
+====================================================================================================
+
+[ENTERPRISE WAREHOUSE ARCHITECTURE]
+Snowflake serves as the centralized Cloud Data Warehouse, securely integrating with Azure Data Lake 
+Storage (ADLS Gen2) via native Azure Storage Integrations. It automatically parses incoming Parquet 
+files and loads them into analytical staging tables via scheduled background tasks.
+
+----------------------------------------------------------------------------------------------------
+1. SNOWFLAKE SETUP & DATA PIPELINE STEPS
+----------------------------------------------------------------------------------------------------
+```
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ STEP 1: DATABASE & STORAGE INTEGRATION                                                           │
+│                                                                                                  │
+│   • Database Context: `mempool_DB`                                                               │
+│   • Integration: `azure_adls_snowflake_int` (External Stage Integration using Azure Tenant ID)   │
+│   • Target ADLS Container: `azure://mempoolspaceacc.blob.core.windows.net/bronze/Mempool_parsing`│
+└────────────────────────────────────────┬─────────────────────────────────────────────────────────┘
+                                         │
+                                         │ (Parquet File Format & External Stage Definition)
+                                         ▼
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ STEP 2: FILE FORMAT & EXTERNAL STAGING (`adls_api_stage`)                                        │
+│                                                                                                  │
+│   • File Format: `parquet_format` (TYPE = PARQUET)                                               │
+│   • External Stage: `adls_api_stage` pointing to ADLS Gen2 parquet outputs from Databricks.     │
+└────────────────────────────────────────┬─────────────────────────────────────────────────────────┘
+                                         │
+                                         │ (Schema Parsing & Automated Task Scheduled Load)
+                                         ▼
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ STEP 3: AUTOMATED TASK & STAGING TABLE (`STG_MEMPOOL_PARSED`)                                    │
+│                                                                                                  │
+│   • Target Table: `STG_MEMPOOL_PARSED` containing block metrics & full fee percentiles           │
+│     (P10, P25, P50, P75, P90, P95, P99).                                                         │
+│   • Automated Serverless Task: `load_mempool_azure_task` running on a 360-minute schedule:      │
+│     `CREATE OR REPLACE TASK load_mempool_azure_task WAREHOUSE = 'MEMPOOL' SCHEDULE = '360 MINUTE'` │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+----------------------------------------------------------------------------------------------------
+2. WAREHOUSE METRICS & DATA VOLUME PROOF
+----------------------------------------------------------------------------------------------------
+### Total Active Records Ingested: 6,624,822 Records (6.6M+ parsed time-series transactions).
+###  Query Latency: ~48ms aggregate lookup speed over 6.6M+ rows.
+### Zero-Egress Security: Direct Azure Tenant integration via Service Principals with zero persistent credentials stored.
+
+Video:
+
+
+https://github.com/user-attachments/assets/bba0e81e-31a8-4cd2-8b01-b140c9f69660
+
+
 ====================================================================================================
 
 
