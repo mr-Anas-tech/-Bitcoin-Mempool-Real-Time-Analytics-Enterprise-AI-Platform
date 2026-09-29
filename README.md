@@ -136,9 +136,7 @@ using the highly efficient Apache Avro serialization format.
 https://github.com/user-attachments/assets/2c2a1a35-b9f2-4d07-baac-54a59f7104d7
 
 
-====================================================================================================
   #             PYSPARK STREAM & BATCH PROCESSING LAYER (AZURE DATABRICKS)
-====================================================================================================
 
 [MEDALLION ARCHITECTURE PIPELINE]
 The PySpark processing engine executes on Azure Databricks, orchestrating a structured 3-stage 
@@ -194,12 +192,9 @@ data transformation model that ingests binary Avro events and outputs query-opti
 https://github.com/user-attachments/assets/7a635d85-0249-4a0a-a4fb-96eee0ed5770
 
 
-====================================================================================================
 
-
-====================================================================================================
 #            SNOWFLAKE DATA WAREHOUSING & AUTOMATED INGESTION TASK
-====================================================================================================
+
 
 [ENTERPRISE WAREHOUSE ARCHITECTURE]
 Snowflake serves as the centralized Cloud Data Warehouse, securely integrating with Azure Data Lake 
