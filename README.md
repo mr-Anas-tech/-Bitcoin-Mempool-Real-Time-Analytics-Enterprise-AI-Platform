@@ -247,6 +247,10 @@ Video:
 https://github.com/user-attachments/assets/bba0e81e-31a8-4cd2-8b01-b140c9f69660
 
 
+
+<img width="1817" height="657" alt="Screenshot 2026-09-29 175754" src="https://github.com/user-attachments/assets/2fa47ae7-c058-4ff7-ab39-dfb77f25fd36" />
+
+
 ====================================================================================================
 
 
