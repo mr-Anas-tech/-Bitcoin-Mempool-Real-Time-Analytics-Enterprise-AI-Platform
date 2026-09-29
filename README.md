@@ -198,7 +198,7 @@ https://github.com/user-attachments/assets/7a635d85-0249-4a0a-a4fb-96eee0ed5770
 
 
 ====================================================================================================
-                  SNOWFLAKE DATA WAREHOUSING & AUTOMATED INGESTION TASK
+      #            SNOWFLAKE DATA WAREHOUSING & AUTOMATED INGESTION TASK
 ====================================================================================================
 
 [ENTERPRISE WAREHOUSE ARCHITECTURE]
