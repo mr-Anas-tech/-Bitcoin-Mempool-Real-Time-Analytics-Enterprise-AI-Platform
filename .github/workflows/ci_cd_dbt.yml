@@ -2,7 +2,7 @@ name: dbt Snowflake CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, mr-Anas-tech-patch-1 ]
   pull_request:
     branches: [ main ]
 
@@ -40,22 +40,25 @@ jobs:
             outputs:
               dev:
                 type: snowflake
-                account: "$DBT_ENV_SECRET_ACCOUNT"
-                user: "$DBT_ENV_SECRET_USER"
-                password: "$DBT_ENV_SECRET_PASSWORD"
-                role: "$DBT_ENV_SECRET_ROLE"
-                warehouse: "$DBT_ENV_SECRET_WAREHOUSE"
+                account: "${DBT_ENV_SECRET_ACCOUNT}"
+                user: "${DBT_ENV_SECRET_USER}"
+                password: "${DBT_ENV_SECRET_PASSWORD}"
+                role: "${DBT_ENV_SECRET_ROLE}"
+                warehouse: "${DBT_ENV_SECRET_WAREHOUSE}"
                 database: MEMPOOL_DB
-                schema: PUBLIC
+                schema: mempool_dbt
                 threads: 4
                 client_session_keep_alive: False
           EOF
 
       - name: Install dbt Dependencies
+        working-directory: ./mempool
         run: dbt deps
 
       - name: Run dbt Debug
+        working-directory: ./mempool
         run: dbt debug
 
       - name: Execute dbt Build (Models & Tests)
+        working-directory: ./mempool
         run: dbt build
