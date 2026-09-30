@@ -1,18 +1,17 @@
 user:
+  target: default
   outputs:
     default:
-      account: YOWHLGR-GH21736
-      auth_type: password
+      type: snowflake
+      account: "{{ env_var('DBT_ENV_SECRET_ACCOUNT') }}"
+      user: "{{ env_var('DBT_ENV_SECRET_USER') }}"
+      password: "{{ env_var('DBT_ENV_SECRET_PASSWORD') }}"
+      role: ACCOUNTADMIN
+      warehouse: MEMPOOL
+      database: MEMPOOL_DB
+      schema: mempool_dbt
+      threads: 6
       client_session_keep_alive: false
       connect_retries: 3
       connect_timeout: 30
-      database: ' MEMPOOL_DB'
-      password: 109@N@s109aaaa
       retry_on_database_errors: true
-      role: null
-      schema: mempool_dbt
-      threads: 6
-      type: snowflake
-      user: MANAS
-      warehouse: MEMPOOL
-  target: default
