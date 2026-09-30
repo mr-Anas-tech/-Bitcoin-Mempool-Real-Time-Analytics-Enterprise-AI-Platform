@@ -136,7 +136,7 @@ using the highly efficient Apache Avro serialization format.
 https://github.com/user-attachments/assets/2c2a1a35-b9f2-4d07-baac-54a59f7104d7
 
 
-  #             PYSPARK STREAM & BATCH PROCESSING LAYER (AZURE DATABRICKS)
+  ##           PYSPARK STREAM & BATCH PROCESSING LAYER (AZURE DATABRICKS)
 
 [MEDALLION ARCHITECTURE PIPELINE]
 The PySpark processing engine executes on Azure Databricks, orchestrating a structured 3-stage 
@@ -193,7 +193,7 @@ https://github.com/user-attachments/assets/7a635d85-0249-4a0a-a4fb-96eee0ed5770
 
 
 
-#            SNOWFLAKE DATA WAREHOUSING & AUTOMATED INGESTION TASK
+##            SNOWFLAKE DATA WAREHOUSING & AUTOMATED INGESTION TASK
 
 
 ###ENTERPRISE WAREHOUSE ARCHITECTURE
@@ -256,7 +256,7 @@ https://github.com/user-attachments/assets/bba0e81e-31a8-4cd2-8b01-b140c9f69660
 
 
 
-# ⚡ Bitcoin Mempool Real-Time Data Transformation & Analytics Pipeline (dbt + Snowflake)
+## Bitcoin Mempool Real-Time Data Transformation & Analytics Pipeline (dbt + Snowflake)
 
 [![dbt CI/CD Pipeline](https://github.com/mr-Anas-tech/mempool/actions/workflows/ci_cd_dbt.yml/badge.svg)](https://github.com/mr-Anas-tech/mempool/actions)
 ![dbt Core](https://img.shields.io/badge/dbt--core-1.7.0-orange?logo=dbt)
@@ -266,10 +266,9 @@ https://github.com/user-attachments/assets/bba0e81e-31a8-4cd2-8b01-b140c9f69660
 
 This repository also contains the enterprise-grade **dbt (Data Build Tool)** transformation layer for processing real-time **Bitcoin Mempool & Block streaming data** at scale. The pipeline transforms raw streaming records ingested into **Snowflake** into highly optimized, aggregated analytical data marts with automated network congestion alerting, fee volatility risk indicators, and performance-tuned clustering.
 
----
 
 ## 🏛 Architecture & Data Flow
-
+```
 
 +-----------------------------------------------------------------------------------+
 |                            STREAMING INGESTION LAYER                              |
@@ -307,8 +306,121 @@ v
 |             Automated Risk Alerts | Fee Spike Warnings | BI Dashboards            |
 +-----------------------------------------------------------------------------------+
 
+```
+
 ---
 
+## 💎 dbt Transformation Layers
+
+### 1. Bronze Layer — Staging (`stg_mempool.sql`)
+* **Materialization Strategy:** `incremental` (Unique Key: `mempool_id`).
+* **Surrogate Key Generation:** Uses `dbt_utils.generate_surrogate_key(['sequence_number', 'enqueued_time'])` to establish a deterministic primary key for every streaming snapshot.
+* **Watermark Incremental Load:** Enforces `WHERE enqueued_time > (SELECT MAX(enqueued_time) FROM {{ this }})` to process only new records, saving compute costs on 50M+ row tables.
+* **Type Casting & Standardization:** Converts raw strings/variants into strict numeric and timestamp data types (`BIGINT`, `TIMESTAMP`, `DOUBLE PRECISION`).
+
+### 2. Silver Layer — Intermediate (`int_mempool.sql`)
+* **Purpose:** Serves as the standardized, deduplicated **Single Source of Truth** for downstream analytics.
+* **Window Deduplication:** Executes `ROW_NUMBER() OVER (PARTITION BY mempool_id ORDER BY enqueued_time DESC)` to guarantee zero duplicate event records (`WHERE rn = 1`).
+* **Advanced Feature Engineering:**
+  * **Fee Volatility Spreads:** `fee_spread_range` ($p_{99} - p_{10}$) & Interquartile Fee Range ($p_{75} - p_{25}$).
+  * **Fee Skewness Ratio:** Evaluates whale transaction fee anomalies ($p_{99} / p_{10}$).
+  * **Block Efficiency Metrics:** `block_compression_ratio` ($\text{vSize} / \text{Size}$) and `miner_revenue_per_byte`.
+  * **Network Congestion Status:** Categorizes blocks into `High Congestion` (>50 sat/vB), `Moderate Congestion` (20-50 sat/vB), and `Low Congestion` (<20 sat/vB).
+
+---
+
+## 📊 Gold Layer — Analytical Data Marts & Optimization Strategy
+
+To deliver optimal performance at massive scale without incurring high Snowflake compute credits, data aggregations are split across three distinct temporal data marts:
+
+| Data Mart Model | Materialization | Clustering Key | Optimization Strategy & Architectural Rationale |
+| :--- | :--- | :--- | :--- |
+| **`fct_mempool_daily`** | `table` | `['mempool_date']` | Optimized for long-term trends, financial reporting, and daily network stress alerts. |
+| **`fct_mempool_hourly`** | `table` | `['time_hour', 'network_congestion_status']` | Multi-column clustering prunes micro-partitions during hourly fee volatility and congestion analysis. |
+| **`fct_mempool_minutely`** | `table` | **None (Unclustered)** | **Cost Efficiency Choice:** High-frequency minute-level data creates smaller, frequent partitions. Applying clustering at the minute level would induce heavy background re-clustering overhead, leading to micro-partition fragmentation and unnecessary Snowflake costs. |
+
+### 🚨 Real-time Operational Alerts
+Every data mart computes automated conditional alerts directly within SQL transformations:
+* **`daily_network_stress_alert`**: Flags days with $>20$ high-congestion blocks.
+* **`hourly_fee_alert`**: Emits `CRITICAL: Hourly Network Congestion` when median fees surpass operational thresholds.
+* **`fee_spike_alert` & `fee_skewness_alert`**: Minute-level flags to identify real-time fee spikes ($p_{99} > 100$) and whale transaction fee anomalies ($>100x$ skewness).
+
+---
+
+## ⚙️ DevOps & Continuous Integration (CI/CD)
+
+The project employs an automated **GitHub Actions CI/CD workflow** (`.github/workflows/ci_cd_dbt.yml`) that triggers on all pull requests and pushes to `main`.
+
+### CI/CD Workflow Features:
+1. **Automated Environment Setup:** Configures Python 3.10 and installs `dbt-snowflake`.
+2. **Zero-Trust Security Management:** Inject credentials dynamically into `~/.dbt/profiles.yml` using encrypted **GitHub Repository Secrets** at runtime.
+3. **Automated Verification Pipeline:** Executes `dbt deps`, `dbt debug` (connectivity validation), and `dbt build` (compiles models and runs schema/data tests).
+
+### GitHub Workflow Configuration (`ci_cd_dbt.yml`):
+
+```yaml
+name: dbt Snowflake CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, mr-Anas-tech-patch-1 ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  dbt_transformation_and_test:
+    runs-on: ubuntu-latest
+
+    env:
+      DBT_ENV_SECRET_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      DBT_ENV_SECRET_USER: ${{ secrets.SNOWFLAKE_USER }}
+      DBT_ENV_SECRET_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      DBT_ENV_SECRET_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+      DBT_ENV_SECRET_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dbt-snowflake
+        run: |
+          python -m pip install --upgrade pip
+          pip install dbt-snowflake
+
+      - name: Create dbt Profiles Directory & File
+        run: |
+          mkdir -p ~/.dbt
+          cat <<EOF> ~/.dbt/profiles.yml
+          default:
+            target: dev
+            outputs:
+              dev:
+                type: snowflake
+                account: "${DBT_ENV_SECRET_ACCOUNT}"
+                user: "${DBT_ENV_SECRET_USER}"
+                password: "${DBT_ENV_SECRET_PASSWORD}"
+                role: "${DBT_ENV_SECRET_ROLE}"
+                warehouse: "${DBT_ENV_SECRET_WAREHOUSE}"
+                database: MEMPOOL_DB
+                schema: mempool_dbt
+                threads: 4
+                client_session_keep_alive: False
+          EOF
+
+      - name: Install dbt Dependencies
+        run: dbt deps
+
+      - name: Run dbt Debug
+        run: dbt debug
+
+      - name: Execute dbt Build (Models & Tests)
+        run: dbt build
+```
 
 
 
