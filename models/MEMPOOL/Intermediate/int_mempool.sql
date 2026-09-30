@@ -1,5 +1,14 @@
 with staging as (
     select * from {{ ref('stg_mempool') }}
+),
+
+unique_data as(
+    select *,
+    row_number() over (
+        partition by mempool_id
+        order by enqueued_time desc
+    )as rn 
+    from staging
 )
 
 select
@@ -55,4 +64,5 @@ select
         else 'Low Congestion'
     end as network_congestion_status
 
-from staging
+from unique_data
+where rn = 1
