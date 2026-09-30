@@ -52,13 +52,10 @@ jobs:
           EOF
 
       - name: Install dbt Dependencies
-        working-directory: ./mempool
         run: dbt deps
 
       - name: Run dbt Debug
-        working-directory: ./mempool
         run: dbt debug
 
       - name: Execute dbt Build (Models & Tests)
-        working-directory: ./mempool
         run: dbt build
