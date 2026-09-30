@@ -256,3 +256,59 @@ https://github.com/user-attachments/assets/bba0e81e-31a8-4cd2-8b01-b140c9f69660
 
 
 
+# ⚡ Bitcoin Mempool Real-Time Data Transformation & Analytics Pipeline (dbt + Snowflake)
+
+[![dbt CI/CD Pipeline](https://github.com/mr-Anas-tech/mempool/actions/workflows/ci_cd_dbt.yml/badge.svg)](https://github.com/mr-Anas-tech/mempool/actions)
+![dbt Core](https://img.shields.io/badge/dbt--core-1.7.0-orange?logo=dbt)
+![Snowflake](https://img.shields.io/badge/Snowflake-Data%20Warehouse-29B5E8?logo=snowflake)
+![Python](https://img.shields.io/badge/Python-3.10-3776AB?logo=python)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-2088FF?logo=githubactions)
+
+This repository also contains the enterprise-grade **dbt (Data Build Tool)** transformation layer for processing real-time **Bitcoin Mempool & Block streaming data** at scale. The pipeline transforms raw streaming records ingested into **Snowflake** into highly optimized, aggregated analytical data marts with automated network congestion alerting, fee volatility risk indicators, and performance-tuned clustering.
+
+---
+
+## 🏛 Architecture & Data Flow
+
+
++-----------------------------------------------------------------------------------+
+|                            STREAMING INGESTION LAYER                              |
+|   Bitcoin Mempool WebSocket ---> Azure Event Hubs ---> Databricks PySpark (Avro)  |
++-----------------------------------------------------------------------------------+
+|
+v
++-----------------------------------------------------------------------------------+
+|                       SNOWFLAKE RAW DATA WAREHOUSE (STG)                          |
+|                       Source Table: STG_MEMPOOL_PARSED                            |
++-----------------------------------------------------------------------------------+
+|
+v
++-----------------------------------------------------------------------------------+
+|                            dbt MEDALLION ARCHITECTURE                             |
+|                                                                                   |
+|  [BRONZE LAYER]                                                                   |
+|   └── stg_mempool (Incremental Model, Watermark Filter, Surrogate Key)             |
+|            |                                                                      |
+|            v                                                                      |
+|  [SILVER LAYER]                                                                   |
+|   └── int_mempool (Deduplicated via ROW_NUMBER, Core Feature Engineering)         |
+|            |                                                                      |
+|            +-----------------------+-----------------------+                      |
+|            |                       |                       |                      |
+|            v                       v                       v                      |
+|  [GOLD LAYER - MARTS]                                                             |
+|   ├── fct_mempool_daily   ├── fct_mempool_hourly  └── fct_mempool_minutely         |
+|   │   (Clustered: Date)   │   (Clustered: Hour)       (Unclustered / High-Freq)   |
++-----------------------------------------------------------------------------------+
+|
+v
++-----------------------------------------------------------------------------------+
+|                        ANALYTICS & OPERATIONAL MONITORING                         |
+|             Automated Risk Alerts | Fee Spike Warnings | BI Dashboards            |
++-----------------------------------------------------------------------------------+
+
+---
+
+
+
+
