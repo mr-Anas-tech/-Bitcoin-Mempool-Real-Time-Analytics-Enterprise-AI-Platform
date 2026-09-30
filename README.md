@@ -422,5 +422,26 @@ jobs:
         run: dbt build
 ```
 
+Security & Secret Governance
+ * Zero Plain-Text Credentials: Database user credentials, roles, passwords, and warehouse configurations are strictly prohibited from being committed to source control.
+ * Runtime Dynamic Profile Injection: Profiles are dynamically generated in ephemeral GitHub Action runners during execution, leveraging encrypted secret store values.
+🚀 Local Execution Setup
+To run this dbt project locally:
+ * Clone the repository:
+   git clone [https://github.com/mr-Anas-tech/mempool.git](https://github.com/mr-Anas-tech/mempool.git)
+cd mempool
+
+ * Set up virtual environment & install dependencies:
+   python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install dbt-snowflake
+
+ * Configure environment variables:
+   Set DBT_ENV_SECRET_ACCOUNT, DBT_ENV_SECRET_USER, DBT_ENV_SECRET_PASSWORD, DBT_ENV_SECRET_ROLE, and DBT_ENV_SECRET_WAREHOUSE in your local environment.
+ * Run dbt pipeline:
+   dbt deps
+dbt debug
+dbt build
+
 
 
