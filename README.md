@@ -450,5 +450,12 @@ dbt build
 https://github.com/user-attachments/assets/5097e2f8-3bb9-48f7-b13f-f5d2a5489c5e
 
 
+### DBT_DEVOPS_VIDEO:
+
+
+https://github.com/user-attachments/assets/19cbcc83-d33d-4a18-8f1d-1bdaee9bc9de
+
+
+
 
 
