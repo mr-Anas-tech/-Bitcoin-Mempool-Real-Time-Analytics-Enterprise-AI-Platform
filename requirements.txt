@@ -1,0 +1,11 @@
+azure-eventhub
+websocket-client
+flask
+gunicorn
+streamlit
+pandas
+plotly
+google-genai
+pyarrow
+fastparquet
+snowflake-connector-python
