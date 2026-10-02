@@ -325,7 +325,7 @@ v
   * **Fee Volatility Spreads:** `fee_spread_range` ($p_{99} - p_{10}$) & Interquartile Fee Range ($p_{75} - p_{25}$).
   * **Fee Skewness Ratio:** Evaluates whale transaction fee anomalies ($p_{99} / p_{10}$).
   * **Block Efficiency Metrics:** `block_compression_ratio` ($\text{vSize} / \text{Size}$) and `miner_revenue_per_byte`.
-  * **Network Congestion Status:** Categorizes blocks into `High Congestion` (>50 sat/vB), `Moderate Congestion` (20-50 sat/vB), and `Low Congestion` (<20 sat/vB).
+  * **Network Congestion Status:** Categorizes blocks into `High Congestion` (>3 sat/vB), `Moderate Congestion` (1-3 sat/vB), and `Low Congestion` (<1 sat/vB).
 
 ---
 
