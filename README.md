@@ -169,10 +169,50 @@ https://github.com/user-attachments/assets/9ac51e63-3cc3-449d-a6cd-2916b67526dc
 
 ## ⚡ Streamlit Real-Time Analytics & Gemini AI Agent
 
-### Key Capabilities
-* **Dual Time-Horizon Dashboards:** Toggles between Hourly Aggregations (`fct_mempool_hourly`) and High-Frequency Minute Real-Time Spikes (`fct_mempool_minutely`).
-* **Resilient Dual-Source Fallback System:** Directly queries Snowflake, falling back automatically to cached local Parquet files (`hourly_mempool_backup.parquet` & `minutely_mempool_backup.parquet`) if the database is unreachable.
-* **In-App AI Conversational Agent:** Embedded sidebar chatbot powered by `gemini-3.1-flash-lite` that receives real-time mempool context for dynamic network analysis.
+---
+
+## ✨ Key Features & Technical Capabilities
+
+1. **Dual Time-Horizon Analytics:**
+   - **Hourly Aggregations (`FCT_MEMPOOL_HOURS`):** Long-term network trends, fee percentiles (P10 to P99), block size economics, fee skewness, and total block fees collected.
+   - **Minute Real-time Spikes (`FCT_MEMPOOL_MINUTES`):** High-frequency monitoring, rapid fee spikes, real-time whale transaction detection, and micro congestion alerts.
+
+2. **Resilient Dual-Source Fallback System:**
+   - Queries live data directly from **Snowflake DB**.
+   - If database connection fails or times out, seamlessly falls back to cached **Local Parquet Files** (`hourly_mempool_backup.parquet` & `minutely_mempool_backup.parquet`), guaranteeing high dashboard availability.
+
+3. **In-App AI Conversational Agent (Google Gemini):**
+   - Embedded sidebar chat powered by `gemini-3.1-flash-lite`.
+   - Automatically feeds real-time context (latest network congestion, median sat/vB fees, P99 spikes, whale alerts) directly to the AI for accurate, context-aware user responses.
+
+4. **Modern UI/UX Architecture:**
+   - Custom CSS dark theme, responsive grid structures, interactive Plotly charts, dynamic KPI metric alert boxes (Status-aware color formatting).
+
+---
+
+## 📊 Analytics Dashboard Metrics Breakdown
+
+### 1. Hourly Aggregations Horizon (`FCT_MEMPOOL_HOURS`)
+* **Network Status & Alerts:** Network Congestion Status, Hourly Fee Alert, Hourly Skewness Alert.
+* **Block Throughput & Size Economics:** Total Transactions Processed, Total Blocks Mined, Avg/Max Tx per Block, Total Block Size (MB), Avg Block VSize.
+* **Sat/vB Fee Percentile Spread:** P10, P25, P50 (Median), P75, P90, P95, and P99 Fee Spikes.
+* **Whale Outliers & Miner Revenue:** Avg Fee Spread, Interquartile Fee (IQR), Fee Skewness Ratio, Miner Revenue Ratio, Block Compactness.
+* **Visual Distributions:** Hourly Fee Trends Line Chart, Throughput Bar Chart, Total Fees Area Chart.
+
+### 2. Minute Real-time Horizon (`FCT_MEMPOOL_MINUTES`)
+* **Real-time System Alerts:** Fee Spike Alert, Whale Outlier Alert, Congestion Alert, Network Congestion Status.
+* **Minute Level Fee Percentiles:** P10, P50 (Median), P90, P99, and Peak Fee (P99).
+* **High-Frequency Visualizations:** Minute-by-Minute Fee Spike Trends (p99 Level) & Scatter Plots for Whale Transaction Detection.
+
+---
+
+## 🛠 Technology Stack & Dependencies
+
+* **Frontend Dashboard:** `streamlit`, `plotly`
+* **Data Ingestion & Pipeline:** Azure Event Hub, Azure Databricks (PySpark), dbt Cloud & Snowflake
+* * **Data Storage & Warehousing:** Snowflake, `snowflake-connector-python`, `pandas`, `pyarrow` (Parquet)
+* **Generative AI:** `google-genai` (`gemini-3.1-flash-lite`)
+* **Deployment:** Azure App Service / Streamlit Community Cloud
 
 ---
 
@@ -182,13 +222,36 @@ An executive-level interactive reporting solution built for macro monitoring of 
 
 ### Power BI Dashboard Overview:
 
+## Key KPI Metrics & Dashboard Components
 
-### High-Level Metrics & Visuals
-* **Total Daily Transactions:** Historical metric tracking total processed volume (e.g., **2.62bn** total volume, **242.03M – 370.60M** daily).
-* **Total Daily Miner Revenue & Block Size:** Evaluates capacity usage (~**1.59 MB – 1.73 MB**) and miner fee harvests.
-* **Fee Volatility & Spread (Line Chart):** Maps $P_{10}$, $P_{99}$, and Median fee trends across time slices.
-* **Block Efficiency vs. Fee Skewness (Scatter Plot):** Correlates daily average compression ratios with fee inequality.
-* **Network Congestion Breakdown (Donut Chart):** Segments activity into **Low Congestion** (~92-95%), **Moderate Congestion** (~3-6%), and **High Congestion** (~0.1-1.5%).
+### 1. High-Level Executive KPIs
+* **Total Daily Transactions:** Tracks aggregated volume of processed mempool transactions (e.g., **2.62bn** across full timeline, filtering dynamically down to daily volumes like **242.03M** - **370.60M**).
+* **Total Daily Miner Revenue:** Measures total daily transaction fees harvested by network miners.
+* **Average Block Size (MB):** Highlights block capacity utilization (averaging **1.59 MB – 1.73 MB** per block).
+* **Daily Overall Median Fee (Sat/vB):** Tracks network baseline transaction costs across time slices (ranging from **0.43 Sat/vB to 1.20 Sat/vB**).
+
+---
+
+### 2. Analytical Visualizations Breakdown
+
+* **Fee Spread & Volatile Percentiles (Line Chart):**
+  - Displays fee distribution spreads comparing `DAILY_MIN_P10_FEE`, `DAILY_MAX_P99_FEE`, and `AVG_DAILY_MEDIAN_FEE`.
+  - Captures high-frequency fee spikes and whale transaction anomalies visually.
+
+* **Daily Revenue & Fee Trends (Combo Bar Chart):**
+  - Correlates total daily miner revenue against median network fee patterns across daily date ranges (`MEMPOOL_DATE`).
+
+* **Block Efficiency & Skewness Ratio (Scatter Plot):**
+  - Maps `Daily Avg Compression Ratio` against `Daily Avg Fee Skewness` to analyze block space efficiency vs. fee inequality within mined blocks.
+
+* **Network Congestion Breakdown (Donut Chart):**
+  - Categorizes network activity into congestion tiers:
+    - 🟢 **Low Congestion (`Low_cong`):** Baseline network execution (typically ~92% – 95% of traffic).
+    - 🟠 **Moderate Congestion (`Moderate_cong`):** Intermediate mempool pressure (~3% – 6%).
+    - 🔴 **High Congestion (`High_cong`):** Severe transaction queueing & spike conditions (~0.1% – 1.5%).
+
+* **Date & Slicer Controls:**
+  - Interactive multi-select date slicer (`17/09/2026` to `25/09/2026`) enabling day-by-day filter drilling across all metrics.
 
 ---
 
