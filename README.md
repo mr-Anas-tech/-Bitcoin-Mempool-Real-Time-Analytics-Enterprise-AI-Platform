@@ -80,9 +80,6 @@ https://github.com/user-attachments/assets/668aad4b-a665-4d04-b7f5-b729a83c68f6
 
 
 
-https://github.com/user-attachments/assets/dd5ce13a-abdc-4083-81a1-ff0a83521104
-
-
 
 
 
@@ -99,8 +96,7 @@ The ETL processing engine on Azure Databricks applies a 3-tier **Medallion Archi
 ### VIDEO:
 
 
-
-https://github.com/user-attachments/assets/5243c5b2-4deb-4f7c-bb97-69212c0671f4
+https://github.com/user-attachments/assets/dd5ce13a-abdc-4083-81a1-ff0a83521104
 
 
 ---
@@ -111,6 +107,10 @@ https://github.com/user-attachments/assets/5243c5b2-4deb-4f7c-bb97-69212c0671f4
 * **Storage Integration:** `azure_adls_snowflake_int` (Zero-Egress Azure Service Principal Authentication).
 * **Automated Ingestion Task:** Serverless background task (`load_mempool_azure_task`) executing on a 360-minute schedule.
 * **Scale Proof:** Successfully processed **50,119,413+ active rows** (~1 GB compressed micro-partitions) with sub-second lookup latency.
+
+### VIDEO:
+
+https://github.com/user-attachments/assets/5243c5b2-4deb-4f7c-bb97-69212c0671f4
 
 ---
 
@@ -128,9 +128,24 @@ https://github.com/user-attachments/assets/5243c5b2-4deb-4f7c-bb97-69212c0671f4
    * `fct_mempool_daily`: Clustered by `['mempool_date']`.
    * `fct_mempool_hourly`: Multi-column clustered by `['time_hour', 'network_congestion_status']`.
    * `fct_mempool_minutely`: Unclustered high-frequency table to eliminate background re-clustering cost overhead.
+### VIDEO:
+
+
+https://github.com/user-attachments/assets/fffe2aa9-9820-4e24-a422-93d6badbcdb9
+
+
 
 ### DevOps & Continuous Integration (CI/CD)
 Automated via GitHub Actions (`.github/workflows/ci_cd_dbt.yml`) on every pull request and push to `main`. It dynamically injects encrypted repository secrets (`SNOWFLAKE_ACCOUNT`, `SNOWFLAKE_USER`, etc.) into `~/.dbt/profiles.yml` to execute `dbt deps`, `dbt debug`, and `dbt build`.
+
+### VIDEO:
+
+
+
+
+https://github.com/user-attachments/assets/9ac51e63-3cc3-449d-a6cd-2916b67526dc
+
+
 
 ---
 
