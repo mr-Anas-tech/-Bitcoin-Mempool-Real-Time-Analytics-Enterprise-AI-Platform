@@ -457,5 +457,135 @@ https://github.com/user-attachments/assets/19cbcc83-d33d-4a18-8f1d-1bdaee9bc9de
 
 
 
+## ⚡ Bitcoin Mempool Real-Time Analytics & AI Platform
+An end-to-end, enterprise-grade real-time data engineering and analytics platform built to monitor Bitcoin mempool metrics, transaction throughput, fee anomalies, and whale transaction behaviors. Deployed via *Streamlit* with integrated conversational AI (*Google Gemini API*) for instant network intelligence.
+
+## 🏗️ System Architecture & End-to-End Pipeline
+
+```
+[ Bitcoin Network Telemetry ]
+│
+▼
+[ Azure Event Hub ]  ──► (Real-Time Ingestion Stream)
+│
+▼
+[ Azure Databricks ]  ──► (PySpark Aggregations & Outlier Analytics)
+│
+▼
+[ Snowflake Data WH ] ──► (Data Storage: MEMPOOL_DB.MEMPOOL_DBT)
+│
+▼
+[ dbt Cloud ]     ──► (Data Modeling: FCT_MEMPOOL_HOURS & FCT_MEMPOOL_MINUTES)
+│
+▼
+[ Streamlit Analytics ] ◄──► [ Gemini AI Agent ]
+│
+▼
+[ Local Parquet Cache Backup ]
+
+```
+
+## ✨ Key Features & Technical Capabilities
+
+1. *Dual Time-Horizon Analytics:*
+   - *Hourly Aggregations (FCT_MEMPOOL_HOURS):* Long-term network trends, fee percentiles (P10 to P99), block size economics, fee skewness, and total block fees collected.
+   - *Minute Real-time Spikes (FCT_MEMPOOL_MINUTES):* High-frequency monitoring, rapid fee spikes, real-time whale transaction detection, and micro congestion alerts.
+
+2. *Resilient Dual-Source Fallback System:*
+   - Queries live data directly from *Snowflake DB*.
+   - If database connection fails or times out, seamlessly falls back to cached *Local Parquet Files* (hourly_mempool_backup.parquet & minutely_mempool_backup.parquet), guaranteeing high dashboard availability.
+
+3. *In-App AI Conversational Agent (Google Gemini):*
+   - Embedded sidebar chat powered by gemini-3.1-flash-lite.
+   - Automatically feeds real-time context (latest network congestion, median sat/vB fees, P99 spikes, whale alerts) directly to the AI for accurate, context-aware user responses.
+
+4. *Modern UI/UX Architecture:*
+   - Custom CSS dark theme, responsive grid structures, interactive Plotly charts, dynamic KPI metric alert boxes (Status-aware color formatting).
+
+---
+
+## 📊 Analytics Dashboard Metrics Breakdown
+
+### 1. Hourly Aggregations Horizon (FCT_MEMPOOL_HOURS)
+* *Network Status & Alerts:* Network Congestion Status, Hourly Fee Alert, Hourly Skewness Alert.
+* *Block Throughput & Size Economics:* Total Transactions Processed, Total Blocks Mined, Avg/Max Tx per Block, Total Block Size (MB), Avg Block VSize.
+* *Sat/vB Fee Percentile Spread:* P10, P25, P50 (Median), P75, P90, P95, and P99 Fee Spikes.
+* *Whale Outliers & Miner Revenue:* Avg Fee Spread, Interquartile Fee (IQR), Fee Skewness Ratio, Miner Revenue Ratio, Block Compactness.
+* *Visual Distributions:* Hourly Fee Trends Line Chart, Throughput Bar Chart, Total Fees Area Chart.
+
+### 2. Minute Real-time Horizon (FCT_MEMPOOL_MINUTES)
+* *Real-time System Alerts:* Fee Spike Alert, Whale Outlier Alert, Congestion Alert, Network Congestion Status.
+* *Minute Level Fee Percentiles:* P10, P50 (Median), P90, P99, and Peak Fee (P99).
+* *High-Frequency Visualizations:* Minute-by-Minute Fee Spike Trends (p99 Level) & Scatter Plots for Whale Transaction Detection.
+
+---
+
+## 🛠️ Technology Stack & Dependencies
+
+* *Frontend Dashboard:* streamlit, plotly
+* *Data Ingestion & Pipeline:* Azure Event Hub, Azure Databricks (PySpark), dbt Cloud
+* *Data Storage & Warehousing:* Snowflake, snowflake-connector-python, pandas, pyarrow (Parquet)
+* *Generative AI:* google-genai (gemini-3.1-flash-lite)
+* *Deployment:* Azure App Service / Streamlit Community Cloud
+
+---
+
+## 🚀 Setup & Execution Guide
+
+### 1. Prerequisites
+Ensure you have Python 3.9+ installed and configured on your machine.
+
+### 2. Installation
+Clone the repository and install all required libraries:
+```bash
+git clone [https://github.com/mr-Anas-tech/bitcoin-mempool-analytics.git](https://github.com/mr-Anas-tech/bitcoin-mempool-analytics.git)
+cd bitcoin-mempool-analytics
+pip install -r requirements.txt
+```
+
+### 3. Secrets Configuration
+Create a .streamlit/secrets.toml file in your root folder with your credentials:
+[snowflake]
+user = "YOUR_SNOWFLAKE_USER"
+password = "YOUR_SNOWFLAKE_PASSWORD"
+account = "YOUR_SNOWFLAKE_ACCOUNT"
+warehouse = "YOUR_SNOWFLAKE_WAREHOUSE"
+database = "MEMPOOL_DB"
+schema = "MEMPOOL_DBT"
+role = "YOUR_SNOWFLAKE_ROLE"
+
+[gemini]
+api_key = "YOUR_GEMINI_API_KEY"
+
+### 4. Running Local Parquet Backup Extractor
+Execute the offline backup script to generate local Parquet cache files:
+python backup_script.py
+
+5. Launching the Dashboard
+Start the Streamlit Web Application:
+streamlit run app.py
+
+📂 Repository Structure
+├── .streamlit/
+│   └── secrets.toml             # Configuration secrets (Snowflake & Gemini API)
+├── data/
+│   ├── hourly_mempool_backup.parquet   # Offline Parquet backup (Hourly)
+│   └── minutely_mempool_backup.parquet # Offline Parquet backup (Minutely)
+├── eda_analysis.py                       # Main Streamlit Dashboard application logic
+├── create_backup.py             # Snowflake data fetching & local Parquet exporter
+├── requirements.txt             # Project dependencies
+└── README.md                    # Detailed documentation file
+
+## 👤 Author & Maintainer
+ * Developer: Muhammad Anas
+ * GitHub Profile: https://github.com/mr-Anas-tech
+ * Platform: Deployed via Streamlit 
+
+
+
+
+
+
+
 
 
