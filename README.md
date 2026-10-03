@@ -182,7 +182,7 @@ An executive-level interactive reporting solution built for macro monitoring of 
 
 ### 2. Installation
 ```bash
-git clone [https://github.com/mr-Anas-tech/mempool.git](https://github.com/mr-Anas-tech/mempool.git)
+git clone https://github.com/mr-Anas-tech/-Bitcoin-Mempool-Real-Time-Analytics-Enterprise-AI-Platform.git
 cd mempool
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
