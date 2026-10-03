@@ -544,7 +544,8 @@ pip install -r requirements.txt
 ```
 
 ### 3. Secrets Configuration
-Create a .streamlit/secrets.toml file in your root folder with your credentials:
+Create a
+```.streamlit/secrets.toml file in your root folder with your credentials:
 [snowflake]
 user = "YOUR_SNOWFLAKE_USER"
 password = "YOUR_SNOWFLAKE_PASSWORD"
@@ -556,7 +557,7 @@ role = "YOUR_SNOWFLAKE_ROLE"
 
 [gemini]
 api_key = "YOUR_GEMINI_API_KEY"
-
+```
 ### 4. Running Local Parquet Backup Extractor
 Execute the offline backup script to generate local Parquet cache files:
 python backup_script.py
@@ -565,7 +566,8 @@ python backup_script.py
 Start the Streamlit Web Application:
 streamlit run app.py
 
-📂 Repository Structure
+### 📂 Repository Structure
+```
 ├── .streamlit/
 │   └── secrets.toml             # Configuration secrets (Snowflake & Gemini API)
 ├── data/
@@ -575,7 +577,7 @@ streamlit run app.py
 ├── create_backup.py             # Snowflake data fetching & local Parquet exporter
 ├── requirements.txt             # Project dependencies
 └── README.md                    # Detailed documentation file
-
+```
 ## 👤 Author & Maintainer
  * Developer: Muhammad Anas
  * GitHub Profile: https://github.com/mr-Anas-tech
