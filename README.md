@@ -582,6 +582,48 @@ streamlit run app.py
  * Developer: Muhammad Anas
  * GitHub Profile: https://github.com/mr-Anas-tech
  * Platform: Deployed via Streamlit 
+# 📊 Bitcoin Mempool Analytics — Power BI Executive Dashboard
+
+An executive-level Power BI reporting solution built on top of modeled Bitcoin mempool data (Snowflake / dbt) to monitor daily network throughput, miner economic incentives, fee volatility percentiles, and congestion breakdowns.
+
+---
+
+## 📸 Executive Dashboard Overview
+
+![Bitcoin Mempool Power BI Dashboard Overview](data/powerbi_dashboard_overview.png)
+
+---
+
+## Key KPI Metrics & Dashboard Components
+
+### 1. High-Level Executive KPIs
+* **Total Daily Transactions:** Tracks aggregated volume of processed mempool transactions (e.g., **2.62bn** across full timeline, filtering dynamically down to daily volumes like **242.03M** - **370.60M**).
+* **Total Daily Miner Revenue:** Measures total daily transaction fees harvested by network miners.
+* **Average Block Size (MB):** Highlights block capacity utilization (averaging **1.59 MB – 1.73 MB** per block).
+* **Daily Overall Median Fee (Sat/vB):** Tracks network baseline transaction costs across time slices (ranging from **0.43 Sat/vB to 1.20 Sat/vB**).
+
+---
+
+### 2. Analytical Visualizations Breakdown
+
+* **Fee Spread & Volatile Percentiles (Line Chart):**
+  - Displays fee distribution spreads comparing `DAILY_MIN_P10_FEE`, `DAILY_MAX_P99_FEE`, and `AVG_DAILY_MEDIAN_FEE`.
+  - Captures high-frequency fee spikes and whale transaction anomalies visually.
+
+* **Daily Revenue & Fee Trends (Combo Bar Chart):**
+  - Correlates total daily miner revenue against median network fee patterns across daily date ranges (`MEMPOOL_DATE`).
+
+* **Block Efficiency & Skewness Ratio (Scatter Plot):**
+  - Maps `Daily Avg Compression Ratio` against `Daily Avg Fee Skewness` to analyze block space efficiency vs. fee inequality within mined blocks.
+
+* **Network Congestion Breakdown (Donut Chart):**
+  - Categorizes network activity into congestion tiers:
+    - 🟢 **Low Congestion (`Low_cong`):** Baseline network execution (typically ~92% – 95% of traffic).
+    - 🟠 **Moderate Congestion (`Moderate_cong`):** Intermediate mempool pressure (~3% – 6%).
+    - 🔴 **High Congestion (`High_cong`):** Severe transaction queueing & spike conditions (~0.1% – 1.5%).
+
+* **Date & Slicer Controls:**
+  - Interactive multi-select date slicer (`17/09/2026` to `25/09/2026`) enabling day-by-day filter drilling across all metrics.
 
 
 
