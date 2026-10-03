@@ -73,6 +73,18 @@ This repository orchestrates a multi-tier streaming pipeline: **WebSocket Ingest
 * **Streaming Bus:** Azure Event Hubs (`mempoolspace-Events / mempool_realtime_streamig`) decoupling WebSocket edge ingestion from downstream engines.
 * **Auto-Capture Lakehouse Sink:** Automatically persists raw binary message streams into compact **Apache Avro** files stored in ADLS Gen2 (`abfss://bronze@mempoolspaceacc.dfs.core.windows.net/`).
 * **Resilience & Dynamic Batching:** Implements client-side dynamic 1MB payload batching (`producer.create_batch()`) to intercept overflow exceptions during network volatility spikes.
+### VIDEO:
+
+https://github.com/user-attachments/assets/668aad4b-a665-4d04-b7f5-b729a83c68f6
+
+
+
+
+https://github.com/user-attachments/assets/dd5ce13a-abdc-4083-81a1-ff0a83521104
+
+
+
+
 
 ---
 
@@ -83,6 +95,13 @@ The ETL processing engine on Azure Databricks applies a 3-tier **Medallion Archi
 2. **Silver Layer:** Deserializes raw string payloads dynamically via `schema_of_json()` and flattens array structures with `explode_outer()`.
 3. **Gold Layer:** Extracts fee percentile metrics ($P_{10}$ to $P_{99}$) and writes compressed, query-optimized Parquet files to `Mempool_parsing/`.
 * **Workflow Orchestration:** Scheduled via Databricks Workflows every 5 hours (`mempool_parsing` pipeline) with enterprise Key Vault secret hardening.
+
+### VIDEO:
+
+
+
+https://github.com/user-attachments/assets/5243c5b2-4deb-4f7c-bb97-69212c0671f4
+
 
 ---
 
