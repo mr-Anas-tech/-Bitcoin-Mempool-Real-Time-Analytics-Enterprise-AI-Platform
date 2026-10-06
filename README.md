@@ -214,6 +214,10 @@ https://github.com/user-attachments/assets/9ac51e63-3cc3-449d-a6cd-2916b67526dc
 * **Generative AI:** `google-genai` (`gemini-3.1-flash-lite`)
 * **Deployment:** Azure App Service / Streamlit Community Cloud
 
+## Streamlit Application Link:
+
+https://mempool-dataengineeranas.streamlit.app/
+
 ## Video:
 
 
