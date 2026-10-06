@@ -273,6 +273,9 @@ An executive-level interactive reporting solution built for macro monitoring of 
 
 * **Date & Slicer Controls:**
   - Interactive multi-select date slicer (`17/09/2026` to `25/09/2026`) enabling day-by-day filter drilling across all metrics.
+## Power Pb Dashboard Link:
+
+https://drive.google.com/file/d/1aOB4k55aHxROdGpqc_S7S_5dI8GKWxIU/view?usp=sharing
  
 ## Video:
 
