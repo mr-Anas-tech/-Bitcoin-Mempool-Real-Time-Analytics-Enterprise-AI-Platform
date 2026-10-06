@@ -222,7 +222,6 @@ https://github.com/user-attachments/assets/691c9d56-34ae-472d-a841-ba9593485881
 
 ### Pics:
 
-<img width="1562" height="756" alt="Screenshot 2026-10-06 154231" src="https://github.com/user-attachments/assets/bf54140b-01fa-406f-a635-200a7de071f1" />
 <img width="1911" height="833" alt="Screenshot 2026-10-06 154201" src="https://github.com/user-attachments/assets/dcc08f32-fd54-42a9-9a7d-f23e9c75e9b9" />
 <img width="1907" height="868" alt="Screenshot 2026-10-06 154134" src="https://github.com/user-attachments/assets/e2b1f6ea-0afb-4836-ba3a-7fe973a8d621" />
 <img width="1916" height="902" alt="Screenshot 2026-10-06 154057" src="https://github.com/user-attachments/assets/ea44965e-0d66-44a0-9ada-bdc12ff854e2" />
