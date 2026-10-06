@@ -346,6 +346,7 @@ dbt build
 │   ├── minutely_mempool_backup.parquet # Cached offline Parquet data (Minutely)
 │   └── powerbi_dashboard_overview.png  # Dashboard visual previews
 ├── models/                          # dbt transformation models (Bronze, Silver, Gold)
+|--- mempool(snowflake)               # snowflake parsing & task
 ├── eda_analysis.py                  # Streamlit Dashboard application & Gemini AI integration
 ├── create_backup.py                 # Automated Snowflake to Parquet exporter script
 ├── dbt_project.yml                  # dbt configuration parameters
