@@ -317,15 +317,15 @@ if view_option == "Hourly Aggregations":
     st.subheader("🐋 4. Whale Outliers & Miner Revenue Analysis")
     w1, w2, w3, w4, w5 = st.columns(5)
     with w1:
-        render_kpi("Avg Fee Spread", f"{safe_val(latest, ['avg_fee_spread']):.2f}")
+        render_kpi("Avg Fee Spread", f"{safe_val(latest, ['avg_fee_spread']):.7f}")
     with w2:
-        render_kpi("Interquartile Fee (IQR)", f"{safe_val(latest, ['avg_interquartile_fee']):.2f}")
+        render_kpi("Interquartile Fee (IQR)", f"{safe_val(latest, ['avg_interquartile_fee']):.7f}")
     with w3:
-        render_kpi("Fee Skewness Ratio", f"{safe_val(latest, ['avg_fee_skewness']):.2f}")
+        render_kpi("Fee Skewness Ratio", f"{safe_val(latest, ['avg_fee_skewness']):.7f}")
     with w4:
-        render_kpi("Miner Rev Ratio", f"{safe_val(latest, ['avg_miner_revenue_ratio']):.4f}")
+        render_kpi("Miner Rev Ratio", f"{safe_val(latest, ['avg_miner_revenue_ratio']):.7f}")
     with w5:
-        render_kpi("Block Compactness", f"{safe_val(latest, ['avg_block_compactness']):.4f}")
+        render_kpi("Block Compactness", f"{safe_val(latest, ['avg_block_compactness']):.7f}")
 
     col_chart1, col_chart2 = st.columns(2)
     time_col = 'time_hour' if 'time_hour' in df_hourly.columns else df_hourly.columns[0]
