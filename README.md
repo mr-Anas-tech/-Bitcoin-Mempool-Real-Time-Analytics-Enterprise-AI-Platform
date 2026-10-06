@@ -214,6 +214,24 @@ https://github.com/user-attachments/assets/9ac51e63-3cc3-449d-a6cd-2916b67526dc
 * **Generative AI:** `google-genai` (`gemini-3.1-flash-lite`)
 * **Deployment:** Azure App Service / Streamlit Community Cloud
 
+## Video:
+
+
+
+https://github.com/user-attachments/assets/691c9d56-34ae-472d-a841-ba9593485881
+
+### Pics:
+
+<img width="1562" height="756" alt="Screenshot 2026-10-06 154231" src="https://github.com/user-attachments/assets/bf54140b-01fa-406f-a635-200a7de071f1" />
+<img width="1911" height="833" alt="Screenshot 2026-10-06 154201" src="https://github.com/user-attachments/assets/dcc08f32-fd54-42a9-9a7d-f23e9c75e9b9" />
+<img width="1907" height="868" alt="Screenshot 2026-10-06 154134" src="https://github.com/user-attachments/assets/e2b1f6ea-0afb-4836-ba3a-7fe973a8d621" />
+<img width="1916" height="902" alt="Screenshot 2026-10-06 154057" src="https://github.com/user-attachments/assets/ea44965e-0d66-44a0-9ada-bdc12ff854e2" />
+<img width="1907" height="870" alt="Screenshot 2026-10-06 154029" src="https://github.com/user-attachments/assets/1b79a1ca-bfca-44e1-977c-1a8bd90a7315" />
+
+
+
+
+
 ---
 
 ## 📊 Power BI Executive Dashboard
@@ -252,6 +270,20 @@ An executive-level interactive reporting solution built for macro monitoring of 
 
 * **Date & Slicer Controls:**
   - Interactive multi-select date slicer (`17/09/2026` to `25/09/2026`) enabling day-by-day filter drilling across all metrics.
+ 
+## Video:
+
+
+
+https://github.com/user-attachments/assets/d355eb03-b342-48c5-9c24-bf111c69c560
+
+
+### Pics:
+
+<img width="1562" height="756" alt="Screenshot 2026-10-06 154231" src="https://github.com/user-attachments/assets/aa397c21-5a4a-446c-903a-17d0b4da50ef" />
+
+
+
 
 ---
 
@@ -324,7 +356,7 @@ dbt build
 👤 Author & Maintainer
  * Developer: Muhammad Anas
  * GitHub Profile: https://github.com/mr-Anas-tech
- * Deployment Platforms: Azure App Service / Databricks / Snowflake / Streamlit / Power BI
+ * Deployment Platforms: Azure App Service / azure event hub/ Databricks / Snowflake / dbt/ Streamlit / Power BI
 
 
 
